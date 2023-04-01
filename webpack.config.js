@@ -28,10 +28,5 @@ module.exports = {
   },
   entry: ['@babel/polyfill', './src/index.js'],
   target: 'node',
-  resolve: {
-    alias: {
-      'core-js/modules/es.array.slice': path.resolve(__dirname, 'node_modules/core-js/modules/es.array.slice.js')
-    }
-  },
   externals: [nodeExternals()],
 };
