@@ -10,6 +10,7 @@
     "babel-loader": "^9.1.2",
     "bcrypt": "^5.0.1",
     "core-js": "^3.29.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "eslint-config-prettier": "^8.5.0",
     "esm": "^3.2.25",

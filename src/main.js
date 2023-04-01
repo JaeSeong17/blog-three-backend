@@ -3,12 +3,10 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose'
-import serve from 'koa-static';
-import path from 'path';
-import send from 'koa-send';
 
 import api from './api';
 import jwtMiddleware from './lib/jwtMiddleware';
+import cors from 'cors';
 
 // 비구조화 할당을 통해 process.env 내부 값에 대한 레퍼런스 만들기
 const { PORT, MONGO_URI } = process.env;
@@ -32,6 +30,7 @@ router.use('/api', api.routes()); //api 라우트 적용
 // 미들웨어 붙이기
 // 라우터 적용 전에 bodyparser 적용
 // ( http 요청 Request body 에 JSON 객체를 담아 서버에 보내면 자동적으로 서버에서 해당 JSON 객체 파싱 작업 진행)
+app.use(cors());
 app.use(bodyParser());
 app.use(jwtMiddleware);
 
