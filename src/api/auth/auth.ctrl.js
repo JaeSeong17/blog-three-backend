@@ -80,6 +80,7 @@ export const login = async ctx => {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
     });
+    console.log(`${ctx.method} ${ctx.url} ${ctx.response.status}`);
   } catch (e) {
     ctx.throw(500, e);
   }
