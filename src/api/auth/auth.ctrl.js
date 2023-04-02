@@ -75,6 +75,8 @@ export const login = async ctx => {
     }
     ctx.body = user.serialize();
 
+    const protocol = ctx.request.headers['x-forwarded-proto'] || ctx.protocol;
+    console.log(`Received ${protocol} request on ${ctx.method} ${ctx.url}`);
     const token = user.generateToken();
     ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
