@@ -34,6 +34,10 @@ app.use(cors({
   origin: '*',
   credentials: true, // 쿠키 사용 여부
 }));
+app.use((ctx, next) => {
+  ctx.cookies.secure = true;
+  return next();
+})
 app.use(logger());
 app.use(bodyParser());
 app.use(jwtMiddleware);
