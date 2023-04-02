@@ -79,6 +79,8 @@ export const login = async ctx => {
     ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
+      secure: false,
+      sameSite: 'none',
     });
     console.log(`${ctx.method} ${ctx.url} ${ctx.response.status}`);
   } catch (e) {
