@@ -67,7 +67,7 @@ export const write = async (ctx) => {
   }
 };
 
-// html을 없애고 내용이 너무 길면 200자로 제한한느 함수
+// html을 없애고 내용이 너무 길면 200자로 제한하는 함수
 const removeHtmlAndShorten = (body) => {
   const filtered = sanitizeHtml(body, {
     allowedTags: [],
@@ -119,19 +119,6 @@ export const read = async (ctx) => {
     comments: ctx.state.comments,
   };
 };
-
-// export const readComments = async ctx => {
-//   const { postId } = ctx.state.post;
-//   try {
-//     const comments = await Post.findById(postId).populate('comments').exec();
-//     ctx.body = {
-//       ...
-//       comments,
-//     };
-//   } catch (e) {
-//     ctx.throw(500, e);
-//   }
-// }
 
 export const remove = async (ctx) => {
   // DELETE /api/posts/:id
