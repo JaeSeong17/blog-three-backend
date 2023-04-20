@@ -1,5 +1,5 @@
-import Joi from "../../../node_modules/joi/lib/index";
-import User from "../../models/user";
+import Joi from '../../../node_modules/joi/lib/index';
+import User from '../../models/user';
 
 // Post /api/auth/register
 // {
@@ -7,15 +7,11 @@ import User from "../../models/user";
 //     password: 'mypass123'
 // }
 
-export const register = async ctx => {
+export const register = async (ctx) => {
   // Request Body 검증
   const schema = Joi.object().keys({
-    username: Joi.string()
-      .alphanum()
-      .min(3)
-      .max(20)
-      .required(),
-    password: Joi.string().required()
+    username: Joi.string().alphanum().min(3).max(20).required(),
+    password: Joi.string().required(),
   });
   const result = schema.validate(ctx.request.body);
   if (result.error) {
@@ -33,10 +29,10 @@ export const register = async ctx => {
     }
 
     const user = new User({
-      username
+      username,
     });
-    await user.setPassword(password);   // 패스워드 설정
-    await user.save();  //데이터 베이스 저장
+    await user.setPassword(password); // 패스워드 설정
+    await user.save(); //데이터 베이스 저장
 
     // 응답할 데이터에서 hashedPassword 필드 제거
     ctx.body = user.serialize();
@@ -51,7 +47,7 @@ export const register = async ctx => {
   }
 };
 
-export const login = async ctx => {
+export const login = async (ctx) => {
   const { username, password } = ctx.request.body;
 
   //username, password가 없으면 에러 처리 -> 값이 제대로 전달 안됐을 때 체크
@@ -82,7 +78,7 @@ export const login = async ctx => {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
       secure: true,
-      sameSite: 'none'
+      sameSite: 'none',
     });
     console.log(`${ctx.method} ${ctx.url} ${ctx.response.status}`);
   } catch (e) {
@@ -90,17 +86,19 @@ export const login = async ctx => {
   }
 };
 
-export const check = async ctx => {
+export const check = async (ctx) => {
   const { user } = ctx.state;
   if (!user) {
     //로그인 중이 아님
     ctx.status = 401; //Unauthorized
     return;
   }
+  const today = new Date();
+  console.log('< ' + user.username + ' > loggedin ' + today);
   ctx.body = user;
 };
 
-export const logout = async ctx => {
+export const logout = async (ctx) => {
   ctx.cookies.set('access_token');
   ctx.status = 204;
-}
+};

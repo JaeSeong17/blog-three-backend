@@ -11,7 +11,7 @@ export const verifyGoogleToken = async (ctx, next) => {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    console.log(payload);
+    console.log(payload.name, payload.email);
     ctx.state.payload = payload;
     return next();
     // 검증 성공, 사용자 정보 반환 등의 작업 수행
