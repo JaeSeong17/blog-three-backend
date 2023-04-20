@@ -42,7 +42,7 @@ export const check = async (ctx) => {
     // 응답할 데이터에서 hashedPassword 필드 제거
     ctx.body = user.serialize();
 
-    console.log();
+    console.log('check find by email: ' + user);
     const token = user.generateToken();
     ctx.cookies.set('jsdb_access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
