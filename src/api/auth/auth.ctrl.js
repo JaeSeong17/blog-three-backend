@@ -71,8 +71,8 @@ export const login = async (ctx) => {
     }
     ctx.body = user.serialize();
 
-    const protocol = ctx.request.headers['x-forwarded-proto'] || ctx.protocol;
-    console.log(`Received ${protocol} request on ${ctx.method} ${ctx.url}`);
+    // const protocol = ctx.request.headers['x-forwarded-proto'] || ctx.protocol;
+    // console.log(`Received ${protocol} request on ${ctx.method} ${ctx.url}`);
     const token = user.generateToken();
     ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
@@ -80,7 +80,7 @@ export const login = async (ctx) => {
       secure: true,
       sameSite: 'none',
     });
-    console.log(`${ctx.method} ${ctx.url} ${ctx.response.status}`);
+    // console.log(`${ctx.method} ${ctx.url} ${ctx.response.status}`);
   } catch (e) {
     ctx.throw(500, e);
   }

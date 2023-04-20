@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 
 const jwtMiddleware = async (ctx, next) => {
   const token = ctx.cookies.get('access_token');
+  console.log('client token: ' + token);
   if (!token) return next(); // 토큰이 없음
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
