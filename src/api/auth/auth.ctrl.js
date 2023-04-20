@@ -38,9 +38,11 @@ export const register = async (ctx) => {
     ctx.body = user.serialize();
 
     const token = user.generateToken();
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set('jsdb_access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     });
   } catch (e) {
     ctx.throw(500, e);
@@ -74,7 +76,7 @@ export const login = async (ctx) => {
     // const protocol = ctx.request.headers['x-forwarded-proto'] || ctx.protocol;
     // console.log(`Received ${protocol} request on ${ctx.method} ${ctx.url}`);
     const token = user.generateToken();
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set('jsdb_access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
       httpOnly: true,
       secure: true,
@@ -99,6 +101,6 @@ export const check = async (ctx) => {
 };
 
 export const logout = async (ctx) => {
-  ctx.cookies.set('access_token');
+  ctx.cookies.set('jsdb_access_token');
   ctx.status = 204;
 };
