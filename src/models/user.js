@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 const UserSchema = new Schema({
   username: String,
   hashedPassword: String,
+  email: String,
 });
 
 // 인스턴스 메서드
@@ -30,18 +31,23 @@ UserSchema.methods.generateToken = function () {
     {
       _id: this.id,
       username: this.username,
+      email: this.email,
     },
-    process.env.JWT_SECRET,     //두번째 파라미터에는 JWT 암호를 넣음
+    process.env.JWT_SECRET, //두번째 파라미터에는 JWT 암호를 넣음
     {
-      expiresIn: '7d',    //7일 동안 유효함
+      expiresIn: '7d', //7일 동안 유효함
     },
   );
   return token;
-}
+};
 
 // 스태틱 메서드
 UserSchema.statics.findByUsername = function (username) {
   return this.findOne({ username });
+};
+
+UserSchema.statics.findByEmail = function (email) {
+  return this.findOne({ email });
 };
 
 const User = mongoose.model('User', UserSchema);
