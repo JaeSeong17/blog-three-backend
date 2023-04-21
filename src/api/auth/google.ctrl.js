@@ -11,7 +11,6 @@ export const verifyGoogleToken = async (ctx, next) => {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    console.log(payload.name, payload.email);
     ctx.state.payload = payload;
     return next();
     // 검증 성공, 사용자 정보 반환 등의 작업 수행
@@ -33,6 +32,7 @@ export const check = async (ctx) => {
     const user = new User({
       username,
       email,
+      verification: true,
     });
     await user.setPassword(sub); // 패스워드 설정
     if (!exists) {
