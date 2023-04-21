@@ -4,7 +4,8 @@ import * as googleCtrl from './google.ctrl';
 
 const auth = new Router();
 
-auth.post('/register', authCtrl.register);
+auth.post('/register', authCtrl.register, authCtrl.sendVerificationMail);
+auth.post('/verify', authCtrl.verification);
 auth.post('/login', authCtrl.login);
 auth.get('/check', authCtrl.check);
 auth.post('/logout', authCtrl.logout);

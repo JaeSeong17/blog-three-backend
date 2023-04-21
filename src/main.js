@@ -41,9 +41,9 @@ app.use((ctx, next) => {
   ctx.cookies.secure = true;
   return next();
 });
-app.use(logger());
+app.use(logger()); // 서버 요청 로그 라이브러리
 app.use(bodyParser());
-app.use(jwtMiddleware);
+app.use(jwtMiddleware); // 쿠키 토큰 확인 / 토큰 해석
 
 // app 인스턴스에 라우터 적용
 app.use(router.routes()).use(router.allowedMethods());

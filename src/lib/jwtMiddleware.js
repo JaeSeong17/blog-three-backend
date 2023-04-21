@@ -9,8 +9,9 @@ const jwtMiddleware = async (ctx, next) => {
     ctx.state.user = {
       _id: decoded._id,
       username: decoded.username,
+      email: decoded.email,
     };
-    console.log(decoded._id, decoded.username, ctx.state._id, ctx.state.user);
+    console.log('Decoded Token:', decoded.username, decoded.email);
 
     //토큰의 남은 기간이 3일 이하일 경우 새 토큰 발행
     // const now = Math.floor(Date.now() / 1000);
