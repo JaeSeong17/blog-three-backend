@@ -54,9 +54,9 @@ export const write = async (ctx) => {
   const { title, body, tags } = ctx.request.body;
 
   const post = new Post({
-    title,
+    title: sanitizeHtml(title, sanitizeOption),
     body: sanitizeHtml(body, sanitizeOption),
-    tags,
+    tags: tags.map((tag) => sanitizeHtml(tag, sanitizeOption)),
     user: ctx.state.user,
   });
   try {
@@ -156,7 +156,11 @@ export const update = async (ctx) => {
 
   const nextData = { ...ctx.request.body };
   if (nextData.body) {
+    nextData.title = sanitizeHtml(nextData.title, sanitizeOption);
     nextData.body = sanitizeHtml(nextData.body, sanitizeOption);
+    nextData.tags = nextData.tags.map((tag) =>
+      sanitizeHtml(tag, sanitizeOption),
+    );
   }
   try {
     const post = await Post.findByIdAndUpdate(id, nextData, {

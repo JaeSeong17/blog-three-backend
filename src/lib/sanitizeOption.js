@@ -72,7 +72,7 @@ export const sanitizeOption = {
     'tr',
     'img',
   ],
-  disallowedTagsMode: 'discard',
+  disallowedTagsMode: 'recursiveEscape',
   allowedAttributes: {
     a: ['href', 'name', 'target'],
     // We don't currently allow img itself by default, but

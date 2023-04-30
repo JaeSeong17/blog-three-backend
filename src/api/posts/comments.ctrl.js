@@ -37,7 +37,7 @@ export const readComments = async (ctx) => {
   } catch (e) {
     ctx.throw(500, e);
   }
-}
+};
 
 export const writeComment = async (ctx, next) => {
   // POST /api/posts/comment
@@ -48,7 +48,7 @@ export const writeComment = async (ctx, next) => {
   const schema = Joi.object().keys({
     // 객체가 다음 필드를 가지고 있음을 검증
     postId: Joi.string().required(),
-    body: Joi.string().required()
+    body: Joi.string().required(),
   });
 
   // 검증 후 실패 처리
@@ -113,7 +113,7 @@ export const updateComment = async (ctx, next) => {
 
   const nextData = { ...ctx.request.body };
   if (nextData.body) {
-    nextData.body = sanitizeHtml(nextData.body, sanitizeOption)
+    nextData.body = sanitizeHtml(nextData.body, sanitizeOption);
   }
   try {
     const comment = await Comment.findByIdAndUpdate(id, nextData, {
@@ -124,7 +124,7 @@ export const updateComment = async (ctx, next) => {
       ctx.status = 404;
       return;
     }
-    ctx.state.postId = comment.postId
+    ctx.state.postId = comment.postId;
     return next();
   } catch (e) {
     ctx.throw(500, e);
